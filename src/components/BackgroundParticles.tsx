@@ -2,8 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 
+interface Particle {
+    id: number;
+    left: string;
+    duration: string;
+    delay: string;
+    size: string;
+    opacity: number;
+}
+
 const BackgroundParticles = () => {
-    const [particles, setParticles] = useState<any[]>([]);
+    const [particles, setParticles] = useState<Particle[]>([]);
 
     useEffect(() => {
         const particleCount = 50;
@@ -31,7 +40,7 @@ const BackgroundParticles = () => {
                         width: p.size,
                         height: p.size,
                         opacity: p.opacity,
-                    } as any}
+                    } as React.CSSProperties}
                 />
             ))}
         </div>

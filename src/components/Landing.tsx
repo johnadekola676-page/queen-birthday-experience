@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface LandingProps {
@@ -18,7 +18,7 @@ const Landing: React.FC<LandingProps> = ({ onEnter }) => {
             }, 2500);
             return () => clearTimeout(timer);
         }
-    }, [step]);
+    }, [step, texts.length]);
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen relative bg-black overflow-hidden px-6">
