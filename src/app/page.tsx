@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BackgroundParticles from '@/components/BackgroundParticles';
-import Countdown from '@/components/Countdown';
 import Landing from '@/components/Landing';
 import MusicPlayer from '@/components/MusicPlayer';
 import MemoryWall from '@/components/MemoryWall';
@@ -12,34 +11,11 @@ import ForeverMoment from '@/components/ForeverMoment';
 import FinalScreen from '@/components/FinalScreen';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type ScreenState = 'COUNTDOWN' | 'LANDING' | 'EXPERIENCE' | 'FINAL';
+type ScreenState = 'LANDING' | 'EXPERIENCE' | 'FINAL';
 
 export default function Home() {
-  const [screen, setScreen] = useState<ScreenState>('COUNTDOWN');
+  const [screen, setScreen] = useState<ScreenState>('LANDING');
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-
-  // Set target date to April 16 of the current or next year
-  const getTargetDate = () => {
-    const now = new Date();
-    const target = new Date(now.getFullYear(), 3, 16); // April is index 3
-    if (now > target) {
-      target.setFullYear(now.getFullYear() + 1);
-    }
-    return target;
-  };
-
-  const targetDate = getTargetDate();
-
-  useEffect(() => {
-    // If it's already April 16 or after, skip countdown
-    if (new Date() >= targetDate) {
-      setScreen('LANDING');
-    }
-  }, []);
-
-  const handleCountdownComplete = () => {
-    setScreen('LANDING');
-  };
 
   const handleEnter = () => {
     setScreen('EXPERIENCE');
@@ -61,18 +37,6 @@ export default function Home() {
       <MusicPlayer play={isMusicPlaying} />
 
       <AnimatePresence mode="wait">
-        {screen === 'COUNTDOWN' && (
-          <motion.div
-            key="countdown"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, filter: 'blur(20px)' }}
-            transition={{ duration: 1.5 }}
-          >
-            <Countdown targetDate={targetDate} onComplete={handleCountdownComplete} />
-          </motion.div>
-        )}
-
         {screen === 'LANDING' && (
           <motion.div
             key="landing"
